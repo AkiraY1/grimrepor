@@ -1,4 +1,3 @@
-
 import os
 import subprocess
 import shutil
@@ -117,6 +116,10 @@ for repo, status in repos_list:
         subprocess.run(["git", "remote", "remove", "origin"], check=True)
         subprocess.run(["git", "remote", "add", "origin", new_repo_url], check=True)
         subprocess.run(["git", "push", "origin", "main"], check=True)
+
+    # After all repository operations, purge pip cache
+    subprocess.run(["pip", "cache", "purge"], check=True)
+    print("Pip cache purged successfully")
 
 os.chdir(ROOT)
 print("All repositories processed successfully.")
